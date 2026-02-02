@@ -1,3 +1,5 @@
+# Exercice 2 : Calculer le produit de deux nombres à 10 chiffres. 
+
 responsesaisie = input("Entrez le premier nombre : ")
 responsesaisie2 = input("Entrez le deuxieme nombre : ")
 
