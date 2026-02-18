@@ -6,6 +6,9 @@ def meow():
     global b
     print('meow')
     b += 1
+
+b = 0 
 meow()
 meow()
 meow()
+print(b)
