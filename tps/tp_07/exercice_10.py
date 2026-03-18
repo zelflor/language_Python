@@ -6,4 +6,4 @@ for i in range(0, 101, 2):
     suitepairs.append(i)
 
 
-print(suitepairs)
+#print(suitepairs)
