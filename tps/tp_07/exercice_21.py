@@ -5,5 +5,6 @@ notes = [6,9,10,14,13]
 coefficients = [2,1,4,3,2]
 listeSomme = []
 for a,b in zip(notes,coefficients):
-    listeSomme.append(a + b) 
+    listeSomme.append(a * b) 
 print(listeSomme)
+

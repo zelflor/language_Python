@@ -20,10 +20,10 @@ nbCommune = 0
 
 nbHabitants.sort()
 
-for i in range(1, len(nbHabitants)):
-    if i != 1:
-        if (nbHabitants[i] == nbHabitants[i - 1]):
-            nbCommune += 1
+for i in range(2, len(nbHabitants)):
+    
+    if (nbHabitants[i] == nbHabitants[i - 1]):
+        nbCommune += 1
 
 
 
