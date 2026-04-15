@@ -82,7 +82,15 @@ def proprietaires_animaux_nes_apres(date):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    resultat = cursor.execute("SELECT animal.id, animal.nom, proprietaire.telephone, consultation.date  FROM proprietaire JOIN  animal ON proprietaire.id = animal.id_proprietaire JOIN consultation ON animal.id =  consultation.id_animal WHERE animal.date_naissance > ? ORDER BY proprietaire.nom, proprietaire.prenom;(date)")
+    resultat = cursor.execute("SELECT animal.id, animal.nom, proprietaire.telephone, consultation.date " \
+    "FROM proprietaire " \
+    "INNER JOIN animal " \
+    "ON proprietaire.id = animal.id_proprietaire " \
+    "INNER JOIN consultation " \
+    "ON animal.id = consultation.id_animal; ")
+    # resultat = cursor.execute("SELECT animal.id, animal.nom, proprietaire.telephone, consultation.date  " \
+    # "FROM proprietaire INNER JOIN animal ON proprietaire.id = animal.id_proprietaire WHERE animal.date_naissance > ? ORDER BY proprietaire.nom, proprietaire.prenom;(date) " \
+    # "INNER JOIN consultation ON animal.id = consultation.id_animal")
     return list(resultat)
 
 def consultation_vaccination_chat(date):
@@ -102,16 +110,16 @@ def consultation_vaccination_chat(date):
 
 def test_consultation_vaccination_chat():
     vaccinations = consultation_vaccination_chat("20240923")
-    # assert len(vaccinations) == 118
-    # assert vaccinations[0] == (16, "Plume", "0.6.36.96.89.83", "20241024")
-    # assert vaccinations[1] == (16, "Plume", "0.6.36.96.89.83", "20251125")
-    # assert vaccinations[2] == (17, "Gollum", "0.6.36.96.89.83", "20250113")
-    # assert vaccinations[3] == (26, "Olympe", "(0)4 73 98 01 23", "20250109")
-    # assert vaccinations[4] == (32, "Chopin", "06.37.97.66.64", "20241201")
-    # assert vaccinations[5] == (32, "Chopin", "06.37.97.66.64", "20251119")
-    # assert vaccinations[6] == (34, "Jazz", "0.6.37.51.65.52", "20250801")
-    # assert vaccinations[7] == (35, "Tango", "0324182", "20250706")
-    # assert vaccinations[8] == (38, "Loulou", "05-35-95-87-54", "20250209")
+    assert len(vaccinations) == 118
+    assert vaccinations[0] == (16, "Plume", "0.6.36.96.89.83", "20241024")
+    assert vaccinations[1] == (16, "Plume", "0.6.36.96.89.83", "20251125")
+    assert vaccinations[2] == (17, "Gollum", "0.6.36.96.89.83", "20250113")
+    assert vaccinations[3] == (26, "Olympe", "(0)4 73 98 01 23", "20250109")
+    assert vaccinations[4] == (32, "Chopin", "06.37.97.66.64", "20241201")
+    assert vaccinations[5] == (32, "Chopin", "06.37.97.66.64", "20251119")
+    assert vaccinations[6] == (34, "Jazz", "0.6.37.51.65.52", "20250801")
+    assert vaccinations[7] == (35, "Tango", "0324182", "20250706")
+    assert vaccinations[8] == (38, "Loulou", "05-35-95-87-54", "20250209")
     print(vaccinations)
     print('Les tests de la fonction consultation_vaccination_chat sont passés')
 

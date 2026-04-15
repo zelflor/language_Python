@@ -1,2 +1,1 @@
-
-# test_normalisation_tel()
+assert len(vaccinations) == 118
