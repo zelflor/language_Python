@@ -3,13 +3,7 @@
 # Question 1 : nettoyage des numéros de téléphone
 
 # Écrire la fonction normalisation_tel ici
-def normalisation_tel(num):
-    num_return = ""
-    for i in range(len(num)):
-        
-        if num[i].isdigit():
-            num_return += num[i]
-    return num_return
+
 
 import sqlite3
 
@@ -28,7 +22,7 @@ def test_normalisation_tel():
     assert normalisation_tel("06129990123") == "06129990123"
     print('Les tests de la fonction normalisation_tel sont passés')
 
-test_normalisation_tel()
+
 # -----------------------------------------------------------------------------
 # Question 2 : validation des numéros de téléphone
 
@@ -52,17 +46,6 @@ def validation_tel(tel):
 # Ecrire votre jeu de tests permettant
 # de vérifier le bon fonctionnement de la fonction.
 
-def test_validation_tel():
-    """
-    Tous les tests doivent passer...
-    """
-    assert validation_tel("0612999012") == True
-    assert validation_tel("0212999012") == False
-    assert validation_tel("061299901") == False 
-    assert validation_tel("06129990123") == False
-    print('Les tests de la fonction validation_tel sont passés')
-
-test_validation_tel()
 
 # -----------------------------------------------------------------------------
 # Détermination de la liste des chats à vacciner
@@ -81,18 +64,18 @@ def proprietaires_animaux_nes_apres(date):
     """
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-
-    resultat = cursor.execute("SELECT animal.id, animal.nom, proprietaire.telephone, proprietaire.nom, consultation.date " \
-    "FROM proprietaire " \
-    "INNER JOIN animal " \
-    "ON proprietaire.id = animal.id_proprietaire " \
-    "INNER JOIN consultation " \
-    "ON animal.id = consultation.id_animal; " \
-    "WHERE animal.date_naissance > "date" " \
-    "ORDER BY proprietaire.nom, proprietaire.prenom "
+    resultat = cursor.execute(
+        """
+    SELECT proprietaire.nom, proprietaire.prenom
+    FROM proprietaire
+        JOIN  animal ON proprietaire.id = animal.id_proprietaire 
+    WHERE animal.date_naissance > ?
+    ORDER BY proprietaire.nom, proprietaire.prenom;
+    """,
+        (date,),
     )
-
     return list(resultat)
+
 
 def consultation_vaccination_chat(date):
     """
@@ -102,11 +85,7 @@ def consultation_vaccination_chat(date):
     :param: date: date minimale
     :return: liste [(id_animal, nom_animal, tel_proprietaire, date_consultation)]
     """
-
-    liste = []
-    liste = proprietaires_animaux_nes_apres(date)
-
-    return liste
+    pass
 
 
 def test_consultation_vaccination_chat():
@@ -121,14 +100,9 @@ def test_consultation_vaccination_chat():
     assert vaccinations[6] == (34, "Jazz", "0.6.37.51.65.52", "20250801")
     assert vaccinations[7] == (35, "Tango", "0324182", "20250706")
     assert vaccinations[8] == (38, "Loulou", "05-35-95-87-54", "20250209")
-    print(vaccinations)
     print('Les tests de la fonction consultation_vaccination_chat sont passés')
 
-test_consultation_vaccination_chat()
-
-
-
-
+# test_consultation_vaccination_chat()
 
 # -----------------------------------------------------------------------------
 # Question 4 : détermination de la date de dernière vaccination
